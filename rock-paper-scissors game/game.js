@@ -1,43 +1,114 @@
+let playerScore = 0;
+let computerScore = 0;
+
+let buttons = document.querySelectorAll('button');
+
+let results = document.createElement('h1');
+let resultDiv = document.querySelector('.results').appendChild(results);
+
+let score = document.createElement('h3');
+let scoreDiv = document.querySelector('.score').appendChild(score);
+scoreDiv.textContent = `${playerScore} - ${computerScore}`
+
+let selections = document.createElement('h4');
+let selectionsDiv = document.querySelector('.selections').appendChild(selections);
+
+let restartDiv = document.querySelector('.restart-button');
+let restartButton = document.createElement('button');
+restartButton.textContent = 'Play again';
 
 function getComputerChoice()
 {
-    let choices = ['Rock', 'Paper', 'Scissors'];
+    let choices = ['ROCK', 'PAPER', 'SCISSORS'];
     let randomChoice = Math.floor(Math.random() * 3);
     return choices[randomChoice];
 }
 
-function playRound(playerSelection, computerSelection)
+function isGameOver()
 {
+    if(playerScore === 5 || computerScore === 5)
+    {
+        handleGameOver()
+        return true;
+    }
+    return false;
+}
+
+function disableButtons() 
+{
+    buttons.forEach(button => button.disabled = true )
+}
+
+function enableButtons() 
+{
+    buttons.forEach(button => button.disabled = false )
+}
+
+function handleGameOver()
+{
+    if(playerScore === 5)
+    {
+        resultDiv.textContent = 'You won the match!';
+    }
+    if(computerScore === 5)
+    {
+        resultDiv.textContent = 'You lost the match :(';
+    }
+}
+
+function handleRestart()
+{
+    playerScore = 0;
+    computerScore = 0;
+    scoreDiv.textContent = `${playerScore} - ${computerScore}`
+    restartDiv.removeChild(restartButton);
+    enableButtons();
+    resultDiv.textContent = '';
+    selectionsDiv.textContent = '';
+}
+
+function playRound(playerSelection)
+{
+    if(playerSelection === 'Restart')
+    {
+        playerScore = 0;
+        computerScore = 0;
+    }
+    let computerSelection = getComputerChoice();
+    selectionsDiv.textContent = `${playerSelection} - ${computerSelection}`;
     if(playerSelection === computerSelection)
     {
-        console.log("it's a tie");
+        resultDiv.textContent = 'It\'s a tie';
         return;
     }
     if((playerSelection === 'ROCK' && computerSelection === 'SCISSORS') || 
     (playerSelection === 'SCISSORS' && computerSelection === 'PAPER') || 
     (playerSelection === 'PAPER' && computerSelection === 'ROCK'))
     {
-        console.log("You win!");
+        playerScore++;
+        selectionsDiv.textContent = `${playerSelection} beats ${computerSelection}`;
+        resultDiv.textContent = 'You win!';
     }
     else if((computerSelection === 'ROCK' && playerSelection === 'SCISSORS') || 
     (computerSelection === 'SCISSORS' && playerSelection === 'PAPER') || 
     (computerSelection === 'PAPER' && playerSelection === 'ROCK'))
     {
-        console.log("You lose!");
+        computerScore++;
+        selectionsDiv.textContent = `${computerSelection} beats ${playerSelection}`;
+        resultDiv.textContent = 'You lose!';
     }
-    else
-    {
-        console.log("invalid input");
+    scoreDiv.textContent = `${playerScore} - ${computerScore}`;
+    if(isGameOver()) {
+        playerScore = 0;
+        computerScore = 0;
+        disableButtons();
+        restartDiv.appendChild(restartButton);
     }
 }
 
-for(let i = 0; i < 5; i++)
-{
-    const computerSelection = getComputerChoice();
-    const playerSelection = prompt("Enter your choice");
-    console.log(`Your choice: ${playerSelection}
-Computer'\s choice: ${computerSelection}`);
-    playRound(playerSelection.toUpperCase(), computerSelection.toUpperCase());
-}
-// console.log(computerSelection);
+buttons.forEach(button => button.addEventListener('click', () => {
+    playRound(button.innerText);
 
+}));
+
+restartButton.addEventListener('click', handleRestart);

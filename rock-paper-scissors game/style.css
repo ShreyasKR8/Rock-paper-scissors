@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #D6E9FE;
+}
+
+header {
+    /* border: 1px solid red; */
+    text-align: center;
+    padding: 40px;
+    background-color: #5995DA;
+}
+
+.instructions {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 24px;
+}
+
+.instructions p {
+    margin-top: 30px;
+}
+
+.buttons {
+    display: flex;
+    /* border: 1px solid red; */
+    width: 540px;
+    padding: 5px;
+    margin-top: 50px;
+    margin-left: 500px;
+    justify-content: space-around;
+}
+
+button {
+    width: 100px;
+    padding: 15px;
+    color: #FFFFFF;
+    background-color: #333333;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 50px;
+}
+
+button:hover {
+    background-color:aliceblue;
+    color: #333333
+}
+
+.selections,
+.results,
+.score,
+.restart-button {
+    text-align: center;
+    margin-bottom: 10px;
+}
