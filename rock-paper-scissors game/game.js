@@ -17,6 +17,9 @@ let restartDiv = document.querySelector('.restart-button');
 let restartButton = document.createElement('button');
 restartButton.textContent = 'Play again';
 
+const currentYear = new Date().getFullYear();
+document.querySelector('.currentYear').textContent = currentYear;
+
 function getComputerChoice()
 {
     let choices = ['ROCK', 'PAPER', 'SCISSORS'];
