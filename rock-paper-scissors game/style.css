@@ -31,7 +31,7 @@ header {
     width: 540px;
     padding: 5px;
     margin-top: 50px;
-    margin-left: 500px;
+    margin-left: 32%;
     justify-content: space-around;
 }
 
@@ -66,4 +66,28 @@ footer {
     padding: 5px;
     background-color: #5995DA;
     text-align: center;
+}
+
+@media only screen and (max-width: 480px) {
+    header {
+        padding: 30px;
+    }
+    .instructions {
+        text-align: center;
+        margin-top: 50px;
+        font-size: 20px;
+    }
+    
+    .buttons {
+        width: 100%;
+        display: flex;
+        margin-left: 0;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 960px) {
+    .buttons {
+        display: flex;
+        margin-left: 10%;
+    }
 }
